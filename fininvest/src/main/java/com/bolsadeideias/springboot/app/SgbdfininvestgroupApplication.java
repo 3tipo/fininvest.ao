@@ -7,6 +7,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+import com.bolsadeideias.springboot.app.modell.NiveldeAcesso;
+import com.bolsadeideias.springboot.app.modell.Usuario;
 import com.bolsadeideias.springboot.app.repo.UserRepository;
 
 @SpringBootApplication
@@ -25,13 +27,23 @@ public class SgbdfininvestgroupApplication implements CommandLineRunner{
 	String password = "1234";
 	@Override
 	public void run(String... args) throws Exception {
-		/*userrepo.deleteAll();
-		
-		for (int i = 0; i < 2; i++) {
-			String passwordEncriptada= passwordEncoder.encode(password);
-			System.err.println(passwordEncriptada);
+		if (userrepo.count() <= 0) {
+			for (int i = 0; i < 1; i++) {
+				String password = "1234567890";
+				Usuario usuario = new Usuario();
+				NiveldeAcesso na = new NiveldeAcesso();
+				String passwordEncriptada = passwordEncoder.encode(password);
+				usuario.setBi("1234567890");
+				usuario.setSocioid(0);
+				usuario.setPassword(passwordEncriptada);
+				usuario.setUsername("root");
+				usuario.setEnabled(true);
+				na.setAuthority("ROLE_ADMIN");
+				usuario.addRol(na);
+				userrepo.save(usuario);
+			}
+
 		}
-		*/
 		
 	}
 
